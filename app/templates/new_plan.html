@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Travel Plan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px;
+        }
+        form {
+            background-color: white;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <form method="POST" action="{{ url_for('views.new_plan') }}">
+        <h2>Create Your Travel Plan</h2>
+
+        <label for="start_city">Where are you starting your trip from?</label>
+        <input type="text" id="start_city" name="start_city" placeholder="Enter your start city here..." autocomplete="off">
+
+        <label for="destination_city">Search for your destination country/city</label>
+        <input type="text" id="destination_city" name="destination_city" placeholder="Search for places..." autocomplete="off">
+
+        <label for="start_date">Select Start Date</label>
+        <input type="date" id="start_date" name="start_date">
+
+        <label for="end_date">Select End Date</label>
+        <input type="date" id="end_date" name="end_date">
+
+        <label for="theme">Which of these travel themes best describes your dream getaway? (Optional)</label>
+        <input type="text" id="theme" name="theme" placeholder="Add theme">
+
+        <div style="display: flex; justify-content: space-between;">
+            <button type="button" onclick="window.history.back()">Back</button>
+            <button type="submit">Continue</button>
+        </div>
+    </form>
+
+    <script src="{{ url_for('static', filename='autocomplete.js') }}"></script>
+</body>
+</html>

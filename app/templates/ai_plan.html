@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your AI Travel Itinerary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .itinerary-box {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            white-space: pre-wrap; /* keeps line breaks from OpenAI */
+        }
+
+        .back-button {
+            margin-top: 30px;
+        }
+
+        .back-button a {
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .back-button a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Your AI-Generated Travel Plan</h1>
+
+    <div class="itinerary-box">
+        {{ itinerary }}
+    </div>
+
+    <div class="back-button">
+        <a href="{{ url_for('views.plans') }}">Plan Another Trip</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Preferences</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px;
+        }
+        form {
+            background-color: white;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 10px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <form method="POST" action="{{ url_for('views.plan_details') }}">
+        <h2>Travel Preferences</h2>
+
+        <label for="pace">What pace of travel do you prefer?</label>
+        <select name="pace" id="pace">
+            <option value="">Select pace</option>
+            <option value="Relaxed">Relaxed</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Adventurous">Adventurous</option>
+        </select>
+
+        <label for="weather">What kind of weather do you prefer for your trip?</label>
+        <select name="weather" id="weather">
+            <option value="">Select weather</option>
+            <option value="Sunny">Sunny</option>
+            <option value="Cool/Breezy">Cool/Breezy</option>
+            <option value="Snowy">Snowy</option>
+            <option value="Rainy">Rainy</option>
+        </select>
+
+        <label for="accommodation">What type of accommodation would you prefer?</label>
+        <select name="accommodation" id="accommodation">
+            <option value="">Select accommodation</option>
+            <option value="Hotel">Hotel</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Resort">Resort</option>
+            <option value="Homestay">Homestay</option>
+            <option value="Camping">Camping</option>
+        </select>
+
+        <label for="food">What type of food would you like to enjoy during your trip?</label>
+        <select name="food" id="food">
+            <option value="">Select food type</option>
+            <option value="Local Cuisine">Local Cuisine</option>
+            <option value="Street Food">Street Food</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Seafood">Seafood</option>
+            <option value="Luxury Dining">Luxury Dining</option>
+        </select>
+
+        <label for="travel_mode">How would you like to travel from departure to destination?</label>
+        <select name="travel_mode" id="travel_mode">
+            <option value="">Select travel mode</option>
+            <option value="Flight">Flight</option>
+            <option value="Train">Train</option>
+            <option value="Bus">Bus</option>
+            <option value="Car">Car</option>
+            <option value="Cruise">Cruise</option>
+        </select>
+
+        <div style="display: flex; justify-content: space-between;">
+            <button type="button" onclick="window.history.back()">Back</button>
+            <button type="submit">Submit Preferences</button>
+        </div>
+    </form>
+
+</body>
+</html>
