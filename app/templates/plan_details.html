@@ -1,176 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Travel Planner - Plan Details</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f8fc;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f4f8fc;
+        margin: 0;
+        padding: 0;
+      }
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+      }
 
-        label {
-            display: block;
-            margin: 15px 0 5px;
-            font-weight: bold;
-        }
+      label {
+        display: block;
+        margin: 15px 0 5px;
+        font-weight: bold;
+      }
 
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
 
-        .passenger-category {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
+      .passenger-category {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
 
-        .passenger-category span {
-            flex: 1;
-        }
+      .passenger-category span {
+        flex: 1;
+      }
 
-        .passenger-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+      .passenger-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .passenger-controls input {
-            width: 50px;
-            text-align: center;
-        }
+      .passenger-controls input {
+        width: 50px;
+        text-align: center;
+      }
 
-        .passenger-controls button {
-            padding: 6px 12px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+      .passenger-controls button {
+        padding: 6px 12px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
 
-        button[type="submit"] {
-            display: block;
-            margin: 30px auto 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+      button[type="submit"] {
+        display: block;
+        margin: 30px auto 0;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-        button[type="submit"]:hover {
-            background-color: #218838;
-        }
+      button[type="submit"]:hover {
+        background-color: #218838;
+      }
+
+      .error-message {
+        color: red;
+        text-align: center;
+        margin-bottom: 10px;
+      }
     </style>
     <script>
-        function updatePassengerCount(id, change) {
-            const input = document.getElementById(id);
-            let count = parseInt(input.value);
-            count = Math.max(0, count + change);
-            input.value = count;
-        }
+      function updatePassengerCount(id, change) {
+        const input = document.getElementById(id);
+        let count = parseInt(input.value);
+        count = Math.max(0, count + change);
+        input.value = count;
+      }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('https://api.exchangerate-api.com/v4/latest/USD')
-                .then(response => response.json())
-                .then(data => {
-                    const currencyDropdown = document.getElementById('currency');
-                    const currencies = Object.keys(data.rates);
-                    currencies.forEach(code => {
-                        const option = document.createElement('option');
-                        option.value = code;
-                        option.text = code;
-                        currencyDropdown.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Currency fetch error:', error));
-        });
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("https://api.exchangerate-api.com/v4/latest/USD")
+          .then((response) => response.json())
+          .then((data) => {
+            const currencyDropdown = document.getElementById("currency");
+            const currencies = Object.keys(data.rates);
+            currencies.forEach((code) => {
+              const option = document.createElement("option");
+              option.value = code;
+              option.text = code;
+              currencyDropdown.appendChild(option);
+            });
+          })
+          .catch((error) => console.error("Currency fetch error:", error));
+      });
     </script>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Plan Your Trip</h1>
 
-<div class="container">
-    <h1>Plan Your Trip</h1>
+      {% if error %}
+      <p class="error-message">{{ error }}</p>
+      {% endif %}
 
-    <form method="POST" action="{{ url_for('views.plan_details') }}">
+      <form method="POST" action="{{ url_for('views.plan_details') }}">
+        <!-- Destination -->
+        <label for="destination">Destination:</label>
+        <input
+          type="text"
+          id="destination"
+          name="destination"
+          placeholder="e.g. Paris"
+          required
+        />
+
+        <!-- Number of Days -->
+        <label for="days">Number of Days:</label>
+        <input
+          type="number"
+          id="days"
+          name="days"
+          min="1"
+          placeholder="e.g. 5"
+          required
+        />
+
         <!-- Currency -->
         <label for="currency">Select Currency:</label>
         <select id="currency" name="currency" required>
-            <option value="">-- Choose Currency --</option>
+          <option value="">-- Choose Currency --</option>
         </select>
 
         <!-- Budget -->
         <label for="budget">Your Budget:</label>
-        <input type="number" id="budget" name="budget" placeholder="e.g. 1500" required>
+        <input
+          type="number"
+          id="budget"
+          name="budget"
+          placeholder="e.g. 1500"
+          required
+        />
 
         <!-- Passengers -->
         <label>Passengers:</label>
 
         <div class="passenger-category">
-            <span>Adults:</span>
-            <div class="passenger-controls">
-                <button type="button" onclick="updatePassengerCount('adults', -1)">-</button>
-                <input type="number" id="adults" name="adults" value="1" min="0" readonly>
-                <button type="button" onclick="updatePassengerCount('adults', 1)">+</button>
-            </div>
+          <span>Adults:</span>
+          <div class="passenger-controls">
+            <button type="button" onclick="updatePassengerCount('adults', -1)">
+              -
+            </button>
+            <input
+              type="number"
+              id="adults"
+              name="adults"
+              value="1"
+              min="0"
+              readonly
+            />
+            <button type="button" onclick="updatePassengerCount('adults', 1)">
+              +
+            </button>
+          </div>
         </div>
 
         <div class="passenger-category">
-            <span>Children:</span>
-            <div class="passenger-controls">
-                <button type="button" onclick="updatePassengerCount('children', -1)">-</button>
-                <input type="number" id="children" name="children" value="0" min="0" readonly>
-                <button type="button" onclick="updatePassengerCount('children', 1)">+</button>
-            </div>
+          <span>Children:</span>
+          <div class="passenger-controls">
+            <button
+              type="button"
+              onclick="updatePassengerCount('children', -1)"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              id="children"
+              name="children"
+              value="0"
+              min="0"
+              readonly
+            />
+            <button type="button" onclick="updatePassengerCount('children', 1)">
+              +
+            </button>
+          </div>
         </div>
 
         <div class="passenger-category">
-            <span>Seniors:</span>
-            <div class="passenger-controls">
-                <button type="button" onclick="updatePassengerCount('seniors', -1)">-</button>
-                <input type="number" id="seniors" name="seniors" value="0" min="0" readonly>
-                <button type="button" onclick="updatePassengerCount('seniors', 1)">+</button>
-            </div>
+          <span>Seniors:</span>
+          <div class="passenger-controls">
+            <button type="button" onclick="updatePassengerCount('seniors', -1)">
+              -
+            </button>
+            <input
+              type="number"
+              id="seniors"
+              name="seniors"
+              value="0"
+              min="0"
+              readonly
+            />
+            <button type="button" onclick="updatePassengerCount('seniors', 1)">
+              +
+            </button>
+          </div>
         </div>
 
         <!-- Activities -->
         <label for="activities">Preferred Activities:</label>
-        <textarea id="activities" name="activities" rows="4" placeholder="e.g. hiking, beaches, museums" required></textarea>
+        <textarea
+          id="activities"
+          name="activities"
+          rows="4"
+          placeholder="e.g. hiking, beaches, museums"
+          required
+        ></textarea>
 
         <button type="submit">Generate Plan</button>
-    </form>
-</div>
-
-</body>
+      </form>
+    </div>
+  </body>
 </html>
